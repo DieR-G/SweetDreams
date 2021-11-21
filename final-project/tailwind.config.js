@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         "lightgreen": "#6CC471",
+        "lightergreen": "#91D394"
       },
       fontFamily: {
         normal: ['Varela'],
