@@ -11,10 +11,16 @@ module.exports = {
         round: ["Varela Round"],
         styled: ["Pacifico"],
       },
+      backgroundImage: {
+        filler: 'url("/src/Assets/img/city-sky.jpg")'
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      visibility: ["group-hover"],
+      backdropBlur: ['hover', 'focus', 'group-hover'],
+    },
   },
   plugins: [],
 };
