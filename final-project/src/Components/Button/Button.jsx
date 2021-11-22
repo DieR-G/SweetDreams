@@ -2,9 +2,17 @@ import React from "react";
 
 
 //Since the style may vary from use to use, then is passed as a property
-const Button = ({ localStyle, text = "", onClick = () => { } }) => {
+const Button = ({ localStyle, text = "", onClick = () => { }, background }) => {
     return (
-        <button className={localStyle} onClick={onClick}>{text} </button>
+        <>
+            {background ? (
+                <button className={localStyle} onClick={onClick} style={{ backgroundImage: `url(${background})` }}>{text}</button>
+
+            ) : (
+                <button className={localStyle} onClick={onClick}>{text}  </button>
+            )}
+        </>
+
     )
 }
 
