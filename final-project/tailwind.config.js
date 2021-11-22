@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         lightgreen: "#6CC471",
+        darkgreen: "#509154"
       },
       fontFamily: {
         normal: ["Varela"],
@@ -16,6 +17,9 @@ module.exports = {
       backgroundImage: {
         loginpattern: "url('/src/Assets/login_background.svg')",
       },
+      minHeight: {
+        '600': '600px',
+      }
     },
   },
   variants: {
