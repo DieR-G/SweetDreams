@@ -1,0 +1,49 @@
+const BASE_URL = 'https://posts-pw2021.herokuapp.com/api/v1';
+
+export const useAdminServices = {
+    tempLogin: async () => {
+        try {
+            // definition of request's config
+            const config = {
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: "POST",
+                body: "username=gp30_admin&password=QNnbLKHxVe7ktNog",
+            }
+
+            const response = await fetch( `${BASE_URL}/auth/signin`, config );
+    
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch (error) {
+            console.error(error);
+            return {};
+        }
+    },
+
+    getAdminPosts: async ( token, limit = 10, page = 0 ) => {
+        try {
+            // definition of request's config
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                method: "GET",
+            }
+
+            //getting the owned posts from the api
+            const response = await fetch( `${BASE_URL}/post/owned?limit=${limit}&page=${page}`, config );
+    
+            //chekgin if response returned withoud problems
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
