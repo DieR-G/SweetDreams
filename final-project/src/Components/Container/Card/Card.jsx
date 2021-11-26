@@ -10,7 +10,7 @@ const Card = ({ title = "", image = "" }) => {
         <>
             <div className=" group  w-60 h-60  m-4 rounded-xl shadow-lg  bg-cover  " style={{ backgroundImage: `url(${image})` }}>
                 <div className="  w-full h-full rounded-xl flex flex-col justify-center  justify-items-center place-content-center gap-4 backdrop-filter group-hover:backdrop-blur-lg transition ease-in duration-500">
-                    <p className="text-center m-8 invisible group-hover:visible font-normal font-semibold text-white ">{title}</p>
+                    <p className="text-center m-8 invisible group-hover:visible font-normal font-semibold text-purple-400 ">{title}</p>
                     <Button localStyle="h-8 rounded-xl invisible group-hover:visible transition bg-purple-400 m-8 text-white font-bold font-bold" text="See More" />
                 </div>
             </div >

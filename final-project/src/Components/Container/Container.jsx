@@ -20,9 +20,9 @@ const Container = () => {
 
         const fetchPosts = async () => {
             try {
-                //const loginInfo = await postsServices.tempLogin();
+                const loginInfo = await postsServices.tempLogin();
 
-                const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MThjNTIwNzRjZmQ3MDRhZTMzN2Q1ZmQiLCJpYXQiOjE2Mzc2MzEyNTYsImV4cCI6MTYzODg0MDg1Nn0.DilJOf83iqOok7KtwVShRIAU0pyeBWuzhsgn3-o4Mlg"
+                const token = loginInfo['token']
                 const response = await postsServices.getPosts(token, 15, page);
 
 
@@ -30,8 +30,13 @@ const Container = () => {
                 if (!response["response"]) {
                     console.log(response['error']);
                 }
-                else
-                    SetPosts(response['data']);
+                else {
+                    if (response['data'].length === 0)
+                        SetPage(0)
+                    else
+                        SetPosts(response['data']);
+
+                }
 
             } catch (error) {
                 console.log(error)
@@ -62,7 +67,8 @@ const Container = () => {
         <main className=" min-w-screen min-h-screen m-0 flex flex-col flex-wrap justify-center justify-items-center content-evenly">
             <Menu />
             <SearchBar />
-            <div className="flex flex-row flex-wrap justify-center justify-items-center content-evenly ">
+            <div className="min-w-screen  flex flex-row flex-wrap justify-center justify-items-center content-evenly p-20">
+
                 {posts.map((post) => {
                     return <Card title={post.title} key={post.id} image={post.image} />
                 })}
@@ -72,7 +78,10 @@ const Container = () => {
                 <Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Previous" onClick={(e) => { e.preventDefault(); SetPage(changeOffset(page, false)) }} />
                 <Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Next" onClick={(e) => { e.preventDefault(); SetPage(changeOffset(page, true)) }} />
             </div>
-        </main>
+            <div className="w-full h-24 bg-purple-500 flex flex-row justify-end p-6">
+
+            </div>
+        </main >
     )
 }
 
