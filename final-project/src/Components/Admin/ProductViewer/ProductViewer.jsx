@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useAdminServices } from '../../../Services/Admin.services';
+import PaginationButton from './PaginationButton/PaginationButton';
 import Product from './Product/Product';
 import SearchBar from './SearchBar/SearchBar';
 
 const ProductViewer = () => {
     const [ adminPosts, setAdminPosts ] = useState([]);
+    const [ page, setPage] = useState(0);
 
     useEffect(() => {
         const fetchAdminPosts = async () => {
@@ -13,7 +15,7 @@ const ProductViewer = () => {
 
                 const token = loginInfo['token'];
 
-                const response = await useAdminServices.getAdminPosts(token, 15, 0);
+                const response = await useAdminServices.getAdminPosts( token, 10, page );
 
                 setAdminPosts( response['data'] );
             } catch (error) {
@@ -22,16 +24,42 @@ const ProductViewer = () => {
         }
 
         fetchAdminPosts();
-    }, []);
+    }, [ page]);
+
+    const onPrevPagination = () => {
+        let newPage = page;
+        
+        if ( newPage === 0 ) {
+            return;
+        } else {
+            newPage -= 1;
+            setPage( newPage);
+        }
+    }
+
+    const onNextPagination = () => {
+        let newPage = page;
+        
+        newPage += 1;
+        setPage( newPage );
+    }
 
     return (
         <div className='flex flex-col w-1/2'>
             <SearchBar />
+            
             { adminPosts.map(post => {
                 return <Product
-                key={post.title}
-                title={post.title}/>
+                key={post._id}
+                id={post._id}
+                title={post.title} 
+                active={post.active} />
             })}
+            
+            <div className='flex items-center justify-center mt-6'>
+                <PaginationButton actionText='Previus' onPagination={ onPrevPagination }/>
+                <PaginationButton actionText='Next' onPagination={ onNextPagination }/>
+            </div>
         </div>
     );
 }

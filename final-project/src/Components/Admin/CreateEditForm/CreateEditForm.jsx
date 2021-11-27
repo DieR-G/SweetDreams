@@ -1,9 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAdminServices } from '../../../Services/Admin.services';
 
 const CreateEditForm = () => {
+    const [ data, setData ] = useState({
+        title: '',
+        description: '',
+        image: '',
+    });
+
+    const handleInputChange = ( e ) => {
+        setData({
+            ...data, [ e.target.name ]: e.target.value
+        });
+        console.log( data );
+    }
+
+    const resetAll = ( e ) => {
+        e.preventDefault();
+        e.target.reset();
+        setData({
+            title: '',
+            description: '',
+            image: '',
+        })
+    }
+
+    const createPost = async () => {
+        try {
+            const { title, description, image } = { ...data };
+            
+            const loginInfo = await useAdminServices.tempLogin();
+            const token = loginInfo['token'];
+
+            const response = await useAdminServices.createPost( token, title, description, image );
+            
+            if( response ) {
+                console.log( response );
+            } else {
+                console.log('Ha ocurrido un error');
+            }
+            
+        } catch ( error ) {
+            console.log( error );
+        }
+    }
+
     return (
-        <div className='bg-purple-900 flex flex-col items-center w-1/2'>
-            <form action='' className='bg-gray-100 flex flex-col mt-5 p-5 rounded-lg w-4/5'>
+        <div className='bg-purple-700 flex flex-col items-center w-1/2'>
+            <form onSubmit={ resetAll } className='bg-gray-100 flex flex-col mt-5 p-5 rounded-lg w-4/5'>
                 <h2 className='font-normal font-bold text-center text-3xl'>Create post</h2>
 
                 <label htmlFor='title-input' className='mt-2'>Title</label>
@@ -13,6 +57,7 @@ const CreateEditForm = () => {
                     name='title' 
                     placeholder='f.e. The benefits of exercise' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded' 
+                    onChange={ handleInputChange }
                     required
                 />
 
@@ -24,6 +69,7 @@ const CreateEditForm = () => {
                     rows='5' 
                     placeholder='f.e. The health benefits of regular physical activity and exercise cannot be ignored. Everyone benefits from exercise, regardless of age, gender, or physical ability' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
+                    onChange={ handleInputChange }
                     required 
                 />
 
@@ -34,6 +80,7 @@ const CreateEditForm = () => {
                     name='image' 
                     placeholder='f.e. https://health.clevelandclinic.org/wp-content/uploads/sites/3/2013/09/inexpensiveExercise-1277759983-770x533-1.jpg' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
+                    onChange={ handleInputChange }
                     required 
                 />
 
@@ -46,7 +93,8 @@ const CreateEditForm = () => {
                     <button 
                         type='submit' 
                         id='submit' 
-                        className='bg-green-600 hover:bg-green-700 mt-5 px-2 py-2  rounded self-center text-center text-white w-2/6 '
+                        className='bg-green-600 hover:bg-green-700 mt-5 px-2 py-2  rounded self-center text-center text-white w-2/6'
+                        onClick={ () => createPost() }
                     >Create post</button>
                 </div>
             </form>

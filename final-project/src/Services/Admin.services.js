@@ -34,16 +34,62 @@ export const useAdminServices = {
                 method: "GET",
             }
 
-            //getting the owned posts from the api
+            // getting the owned posts from the api
             const response = await fetch( `${BASE_URL}/post/owned?limit=${limit}&page=${page}`, config );
     
-            //chekgin if response returned withoud problems
+            // chekgin if response returned withoud problems
             if (response.ok) {
                 const data = await response.json();
                 return data;
             }
         } catch (error) {
             console.log(error);
+        }
+    },
+
+    createPost: async ( token, title, description, image ) => {
+        try {
+            // definition of request's config
+            const config = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ title: title, description: description, image: image }),
+            }
+
+            // making the request to the api
+            const response = await fetch( `${BASE_URL}/post/create`, config );
+    
+            // chekgin if response returned withoud problems
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch ( error ) {
+            console.log( error );
+        }
+    },
+
+    toggleActive: async ( token, id ) => {
+        try {
+            // definition of request's config
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                method: "PATCH",
+            }
+
+            const response = await fetch( `${BASE_URL}/post/toggle/${id}`, config );
+    
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch ( error ) {
+            console.log( error );
         }
     }
 }

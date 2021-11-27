@@ -8,7 +8,7 @@ const SearchBar = () => {
                 className='border-2 border-gray-300 font-normal px-3 py-1 rounded-l-lg text-base w-1/2'
             />
             <div onClick={ ()=> {} }
-                className='bg-purple-900 hover:bg-purple-600 border-2 border-gray-400 cursor-pointer flex items-center justify-center px-3 py-1 rounded-r-lg text-lg text-white'>
+                className='bg-purple-600 hover:bg-purple-800 border-2 border-gray-400 cursor-pointer flex items-center justify-center px-3 py-1 rounded-r-lg text-lg text-white'>
                 <BiSearchAlt2 />
             </div>
         </div>
