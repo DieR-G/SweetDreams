@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import Button from '../../Button/Button';
-import { FaSearch } from 'react-icons/fa'
+import postsServices from '../../../Services/posts.services'
 import SearchIcon from '../../../Assets/Search.svg'
 
 
@@ -11,12 +11,72 @@ const SearchBar = ({ searchFunction = () => { } },) => {
         console.log(search);
     }, [search])
 
+    //function created to find one specific post, according to user input
+    const searchPost = async (searchText, setter = () => { }) => {
+
+        try {
+            //token shall be added when login is incorporated
+            //const token = 
+            let found = false;
+
+            //number of page to query
+            let page = 0;
+            let response;
+            const loginInfo = await postsServices.tempLogin();
+
+            const token = loginInfo['token']
+
+
+            do {
+
+                response = await postsServices.getPosts(token, 100, page)
+
+                if (!response["response"]) {
+                    console.log(response['error']);
+
+                }
+                else if (response['data'].length == 0) {
+                    //If no data came back from the server, we go out of the loop, since we'd gone over everypost
+                    break;
+                }
+                else {
+
+                    if (response['data'].some(post => post.title === searchText)) {
+                        found = true;
+                    }
+                    else
+                        page += 1;
+
+
+
+                }
+            } while (found === false);
+
+
+            if (found) {   //retriving the post needed 
+                const searchedPost = response['data'].filter(post => post.title === searchText)
+                setter(searchedPost)
+
+            }
+            else {
+                console.log("error: Data not found")
+                //return [];
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+
+
+    }
+
+
     return (
         <div className="flex flex-col flex-wrap justify-center justify-items-center content-evenly ">
             <div className="w-1/2  h-18 bg-purple-500  p-4 rounded-xl shadow-lg   ">
                 <form action="" className="w-auto h-auto flex flex-row flex-wrap justify-center justify-items-center content-evenly">
                     <input type="text" className="w-2/3 h-12 bg-purple-300  rounded-xl mr-2  my-2 font-normal" onChange={(e) => { SetSearch(e.target.value) }} />
-                    <Button localStyle="w-12 h-12  ml-4 my-2" background={SearchIcon} onClick={searchFunction} />
+                    <Button localStyle="w-12 h-12  ml-4 my-2" background={SearchIcon} onClick={ (e) => { e.preventDefault();  searchPost(search,searchFunction)}} />
 
                 </form>
             </div >

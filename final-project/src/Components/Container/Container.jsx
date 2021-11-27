@@ -25,7 +25,9 @@ const Container = () => {
                 const loginInfo = await postsServices.tempLogin();
 
                 const token = loginInfo['token']
+
                 const response = await postsServices.getPosts(token, 15, page);
+
 
 
 
@@ -39,6 +41,8 @@ const Container = () => {
                         SetPosts(response['data']);
 
                 }
+
+
 
             } catch (error) {
                 console.log(error)
@@ -66,54 +70,10 @@ const Container = () => {
         }
     }
 
-    //function created to find one specific post, according to user input
-    const searchPost = async (searchText) => {
-        //token shall be added when login is incorporated
-        //const token = 
-        const found =  false;
-        const loginInfo = await postsServices.tempLogin();
-        //number of page to query
-        let page = 0; 
-        let response;
-        const token = loginInfo['token']
-        
-
-        do {
-            
-            response = await postsServices.getPosts(token, 100, page)
-
-            if (!response["response"]) {
-                console.log(response['error']);
-                }
-            else if(response['data'].length == 0){
-                //If no data came back from the server, we go out of the loop, since we'd gone over everypost
-                break;
-            }
-            else
-                {
-                    //searching for the requested post
-                    
-                    if(response['data'].some(post => post.id === searchText))
-                        {
-                            found = true;
-                        }
-                    else
-                        page += 1;
-
-                }
-        } while (found === false );
-
-        
-        if(found)
-        {
-
-        }
-        else
-        {
-            console.log("error: Data not found")
-        }
 
 
+    const a = (b) => {
+        console.log(b)
     }
 
 
@@ -121,7 +81,7 @@ const Container = () => {
 
         <main className=" min-w-screen min-h-screen m-0 flex flex-col flex-wrap justify-center justify-items-center content-evenly">
             <Menu />
-            <SearchBar />
+            <SearchBar searchFunction={SetPosts} />
             <div className="min-w-screen  flex flex-row flex-wrap justify-center justify-items-center content-evenly p-20">
 
                 {posts.map((post) => {

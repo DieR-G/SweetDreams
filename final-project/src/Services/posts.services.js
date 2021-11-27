@@ -35,8 +35,8 @@ services.getPosts = async (token, limit = 10, page = 0) => {
 }
 
 
-services.getOnePost(id, token) = async () => {
-    const request = await fetch(`ONE_URL${token}`, {
+services.getOnePost = async (id, token) => {
+    const request = await fetch(`${ONE_URL}${id}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         },
