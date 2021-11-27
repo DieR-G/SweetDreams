@@ -1,11 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAdminContext } from '../../../../Contexts/AdminContext';
+import { useAdminServices } from '../../../../Services/Admin.services';
 
 const EditForm = () => {
+    const { postId } = useAdminContext();
+
     const [ data, setData ] = useState({
         title: '',
         description: '',
         image: '',
     });
+
+    useEffect(() => {
+        const getAPost = async () => {
+            try {
+                const loginInfo = await useAdminServices.tempLogin();
+                const token = loginInfo['token'];
+    
+                const response = await useAdminServices.getOnePost( token, postId );
+                
+                console.log( response );
+                
+                const newData = {
+                    title: response.title,
+                    description: response.description,
+                    image: response.image,
+                }
+                
+                setData( newData );
+            } catch ( error ) {
+                console.log( error );
+            }
+        }
+
+        getAPost();
+    }, [ postId ]);
 
     const handleInputChange = ( e ) => {
         setData({
@@ -24,8 +53,23 @@ const EditForm = () => {
         })
     }
     
-    const editPost = () => {
-        console.log('a');
+    const editPost = async () => {
+        try {
+            const { title, description, image } = { ...data };
+            
+            const loginInfo = await useAdminServices.tempLogin();
+            const token = loginInfo['token'];
+
+            const response = await useAdminServices.updatePost( token, postId, title, description, image );
+            
+            if( response ) {
+                console.log( response );
+            } else {
+                console.log('Ha ocurrido un error');
+            }  
+        } catch ( error ) {
+            console.log( error );
+        }
     }
     
     return (
@@ -40,6 +84,7 @@ const EditForm = () => {
                     name='title' 
                     placeholder='f.e. The benefits of exercise' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded' 
+                    value={ data.title }
                     onChange={ handleInputChange }
                     required
                 />
@@ -52,6 +97,7 @@ const EditForm = () => {
                     rows='5' 
                     placeholder='f.e. The health benefits of regular physical activity and exercise cannot be ignored. Everyone benefits from exercise, regardless of age, gender, or physical ability' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
+                    value={ data.description }
                     onChange={ handleInputChange }
                     required 
                 />
@@ -63,6 +109,7 @@ const EditForm = () => {
                     name='image' 
                     placeholder='f.e. https://health.clevelandclinic.org/wp-content/uploads/sites/3/2013/09/inexpensiveExercise-1277759983-770x533-1.jpg' 
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
+                    value={ data.image }
                     onChange={ handleInputChange }
                     required 
                 />

@@ -8,12 +8,17 @@ const AdminContext = createContext();
 
 export const AdminProvider = ( props ) => {
     const [ formState, setFormState ] = useState( 'create' );
+    const [ postId, setPostId ] = useState('');
 
-    const changeFormState = newState => setFormState ( newState );
+    const changeFormState = newState => setFormState( newState );
+
+    const changePostId = newPostId => setPostId( newPostId );
 
     const providerValue = {
         formState: formState,
         changeFormState: changeFormState,
+        postId: postId,
+        changePostId: changePostId,
     }
         
     return (

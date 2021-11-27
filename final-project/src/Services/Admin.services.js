@@ -47,6 +47,28 @@ export const useAdminServices = {
         }
     },
 
+    getOnePost: async ( token, id ) => {
+        try {
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                method: "GET",
+            }
+
+            console.log( id );
+
+            const response = await fetch( `${BASE_URL}/post/one/${id}`, config );
+    
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch ( error ) {
+            console.log( error );
+        }
+    },
+
     createPost: async ( token, title, description, image ) => {
         try {
             // definition of request's config
@@ -91,5 +113,27 @@ export const useAdminServices = {
         } catch ( error ) {
             console.log( error );
         }
-    }
+    },
+
+    updatePost: async ( token, id, title, description, image ) => {
+        try {
+            const config = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
+                body: JSON.stringify({ title: title, description: description, image: image }),
+            }
+
+            const response = await fetch( `${BASE_URL}/post/update/${id}`, config );
+    
+            if (response.ok) {
+                const data = await response.json();
+                return data;
+            }
+        } catch ( error ) {
+            console.log( error );
+        }
+    } 
 }
