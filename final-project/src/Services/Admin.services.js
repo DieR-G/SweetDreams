@@ -118,13 +118,15 @@ export const useAdminServices = {
     updatePost: async ( token, id, title, description, image ) => {
         try {
             const config = {
-                method: "POST",
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify({ title: title, description: description, image: image }),
             }
+
+            console.log(id);
 
             const response = await fetch( `${BASE_URL}/post/update/${id}`, config );
     
