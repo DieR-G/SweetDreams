@@ -1,8 +1,10 @@
 import React from 'react';
 import { AiOutlineEye, BiEditAlt, FiTrash2 } from 'react-icons/all';
+import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
 
 const Product = ( { id, title, active } ) => {
+    const { formState, changeFormState } = useAdminContext();
 
     const toggleActive = async () => {
         try {
@@ -21,6 +23,14 @@ const Product = ( { id, title, active } ) => {
         }
     }
 
+    const setNewFormState = () => {
+        if ( formState === 'create' ) {
+            changeFormState( 'edit' );
+        } else {
+            changeFormState( 'create' );
+        }
+    }
+
     return (
         <div className='border-2 border-purple-900 flex h-12 items-center justify-between mx-4 mt-5 rounded'>
             <div className='ml-4 w-9/12'>
@@ -33,7 +43,7 @@ const Product = ( { id, title, active } ) => {
                     <AiOutlineEye />
                 </div>
 
-                <div onClick={ () => {} }
+                <div onClick={ () => { setNewFormState(); } }
                     className='bg-yellow-500 hover:bg-yellow-700 cursor-pointer flex h-full justify-center items-center w-4/12'>
                     <BiEditAlt />
                 </div>

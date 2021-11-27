@@ -24,7 +24,7 @@ const ProductViewer = () => {
         }
 
         fetchAdminPosts();
-    }, [ page]);
+    }, [ page ]);
 
     const onPrevPagination = () => {
         let newPage = page;
