@@ -1,11 +1,12 @@
 import "./App.css";
 import "./index.css";
 import LoginContainer from "./Components/LoginContainer/LoginContainer";
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./Static/NotFound";
 import Empty from "./Static/Empty";
 import SessionContext from "./Contexts/SessionContext";
+import PostViewer from "./Components/PostViewer/PostViewer";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.login != null ? JSON.parse(localStorage.login):{});
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" element={<LoginContainer />} />
           <Route path="/login" element={<LoginContainer />} />
           <Route path="/home" element={<Empty />} />
+          <Route path = "/posts/:id" element={ <PostViewer /> }/>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

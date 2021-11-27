@@ -36,8 +36,6 @@ function LoginContainer(props) {
     } else {
       newSession = {
         logged: true,
-        user: status.user,
-        role: status.role,
         token: status.token,
       };
       setAuthenticated(newSession);

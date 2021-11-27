@@ -1,23 +1,41 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { GiCat } from "react-icons/gi";
 import { useNavigate } from "react-router";
 import SessionContext from "../Contexts/SessionContext";
+import TempButton from "../Components/PostViewer/TempButton";
+import AuthHelper from "../Services/AuthHelper";
+
 
 export default function Empty() {
   const { authenticated, setAuthenticated } = useContext(SessionContext);
   let navigate = useNavigate();
+  const userRef = useRef({ username: "", role: "" });
+  const [userLoaded, setuserLoaded] = useState(false);
   useEffect(() => {
-    console.log(authenticated);
     if (!authenticated.logged) {
       navigate("/");
+    } else {
+      console.log(authenticated.token);
+      (async function() {
+        let user = await AuthHelper.whoami(authenticated.token);
+        //if request is not ok the token probably expired
+        if (user.found) {
+          userRef.current = user;
+          if (userLoaded !== true) {
+            console.log(authenticated.token);
+            setuserLoaded(true);
+          }
+        }
+        else{
+          logOut();
+        }
+      })();
     }
-  }, []);
+  }, [userLoaded]);
 
   const logOut = () => {
     const emptySession = {
       logged: false,
-      user: "",
-      role: "",
       token: "",
     };
     setAuthenticated(emptySession);
@@ -30,12 +48,14 @@ export default function Empty() {
       <div className="flex flex-col gap-y-10 items-center">
         <div>
           <p className="font-styled text-2xl text-purple-500">
-            Hello {authenticated.user}
+            Hello {userRef.current.username}
           </p>
         </div>
         <div className="flex font-round text-gray-800 gap-x-4 justify-center items-center w-full">
           <GiCat className="text-5xl xl:text-6xl" />
-          <p className="w-6/12 text-2xl xl:text-5xl">Wow! there is nothing here</p>
+          <p className="w-6/12 text-2xl xl:text-5xl">
+            Wow! there is nothing here
+          </p>
         </div>
         <div>
           <button
@@ -45,6 +65,7 @@ export default function Empty() {
             Logout
           </button>
         </div>
+        <TempButton/>
       </div>
     </div>
   );
