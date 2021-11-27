@@ -2,6 +2,7 @@
 import { homePost } from "./utilites"
 const BASE_URL = 'https://posts-pw2021.herokuapp.com/api/v1/post/all'
 const LOGIN_URL = 'https://posts-pw2021.herokuapp.com/api/v1/auth/signin'
+const ONE_URL = 'https://posts-pw2021.herokuapp.com/api/v1/post/one/';
 
 
 const services = {};
@@ -20,7 +21,6 @@ services.getPosts = async (token, limit = 10, page = 0) => {
 
         //chekgin if response returned withoud problems
         const response = await request.json();
-        console.log();
         if (request.ok) {
             const simplyfiedData = response['data'].map(homePost);
             return { response: true, data: simplyfiedData };
@@ -32,6 +32,25 @@ services.getPosts = async (token, limit = 10, page = 0) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+
+services.getOnePost(id, token) = async () => {
+    const request = await fetch(`ONE_URL${token}`, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        method: "POST",
+    })
+
+    const response = await request.json();
+    if (request.ok) {
+        const simplyfiedData = homePost(response);
+        return { response: true, data: simplyfiedData };
+    }
+
+    return { response: false, data: null }
+
 }
 
 

@@ -8,11 +8,13 @@ import postsServices from '../../Services/posts.services'
 
 
 
+
 //Container component, only purpose is to keep in order all the mess inside
 
 const Container = () => {
     const [posts, SetPosts] = useState([]);
     const [page, SetPage] = useState(0);
+
 
 
     useEffect(() => {
@@ -45,8 +47,11 @@ const Container = () => {
 
 
         fetchPosts();
-    }, [page])
+    }, [page]);
 
+
+
+    //function that determines the new offset for the page
     const changeOffset = (amount, sign) => {
 
         if (sign) {
@@ -59,6 +64,56 @@ const Container = () => {
                 return amount = amount - 1;
 
         }
+    }
+
+    //function created to find one specific post, according to user input
+    const searchPost = async (searchText) => {
+        //token shall be added when login is incorporated
+        //const token = 
+        const found =  false;
+        const loginInfo = await postsServices.tempLogin();
+        //number of page to query
+        let page = 0; 
+        let response;
+        const token = loginInfo['token']
+        
+
+        do {
+            
+            response = await postsServices.getPosts(token, 100, page)
+
+            if (!response["response"]) {
+                console.log(response['error']);
+                }
+            else if(response['data'].length == 0){
+                //If no data came back from the server, we go out of the loop, since we'd gone over everypost
+                break;
+            }
+            else
+                {
+                    //searching for the requested post
+                    
+                    if(response['data'].some(post => post.id === searchText))
+                        {
+                            found = true;
+                        }
+                    else
+                        page += 1;
+
+                }
+        } while (found === false );
+
+        
+        if(found)
+        {
+
+        }
+        else
+        {
+            console.log("error: Data not found")
+        }
+
+
     }
 
 
