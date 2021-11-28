@@ -7,6 +7,7 @@ import NotFound from "./Static/NotFound";
 import Empty from "./Static/Empty";
 import SessionContext from "./Contexts/SessionContext";
 import PostViewer from "./Components/PostViewer/PostViewer";
+import Admin from './Components/Admin/Admin';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.login != null ? JSON.parse(localStorage.login):{});
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/" element={<LoginContainer />} />
           <Route path="/login" element={<LoginContainer />} />
           <Route path="/home" element={<Empty />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path = "/posts/:id" element={ <PostViewer /> }/>
           <Route path="*" element={<NotFound />} />
         </Routes>
