@@ -56,8 +56,6 @@ export const useAdminServices = {
                 method: "GET",
             }
 
-            console.log( id );
-
             const response = await fetch( `${BASE_URL}/post/one/${id}`, config );
     
             if (response.ok) {
@@ -125,8 +123,6 @@ export const useAdminServices = {
                 },
                 body: JSON.stringify({ title: title, description: description, image: image }),
             }
-
-            console.log(id);
 
             const response = await fetch( `${BASE_URL}/post/update/${id}`, config );
     

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BiCommentDetail, BiEditAlt, AiOutlineEyeInvisible } from 'react-icons/all';
+import { BiCommentDetail, BiEditAlt, AiOutlineEye } from 'react-icons/all';
 import { useAdminContext } from '../../../../../Contexts/AdminContext';
 
 const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
@@ -23,8 +23,8 @@ const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
                 </div>
 
                 <div onClick={ () => { toggleActive(); } }
-                    className='bg-red-500 hover:bg-red-700 cursor-pointer flex h-full items-center justify-center w-4/12'>
-                    <AiOutlineEyeInvisible />
+                    className='bg-green-600 hover:bg-green-700 cursor-pointer flex h-full items-center justify-center w-4/12'>
+                    <AiOutlineEye />
                 </div>
             </div>
         </div>

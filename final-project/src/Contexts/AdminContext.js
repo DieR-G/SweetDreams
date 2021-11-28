@@ -9,6 +9,7 @@ const AdminContext = createContext();
 export const AdminProvider = ( props ) => {
     const [ formState, setFormState ] = useState( 'create' );
     const [ postState, setPostState ] = useState(0);
+    const [ helpMessage, setHelpMessage ] = useState('Hola');
     const [ postId, setPostId ] = useState(undefined);
     const [ page, setPage ] = useState(0);
 
@@ -17,6 +18,8 @@ export const AdminProvider = ( props ) => {
         setFormState: setFormState,
         postState: postState,
         setPostState: setPostState,
+        helpMessage: helpMessage,
+        setHelpMessage: setHelpMessage,
         postId: postId,
         setPostId: setPostId,
         page: page,

@@ -3,7 +3,7 @@ import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
 
 const EditForm = () => {
-    const { postId, setFormState, setPostId } = useAdminContext();
+    const { postId, setFormState, setPostId, helpMessage, setHelpMessage } = useAdminContext();
 
     const [ data, setData ] = useState({
         title: '',
@@ -18,9 +18,7 @@ const EditForm = () => {
                 const token = loginInfo['token'];
     
                 const response = await useAdminServices.getOnePost( token, postId );
-                
-                console.log( response );
-                
+            
                 const newData = {
                     title: response.title,
                     description: response.description,
@@ -42,10 +40,39 @@ const EditForm = () => {
         });
     }
 
-    const editPost = async () => {
+    const validateData = ( e ) => {
+        e.preventDefault();
+        let allOk = true;
+
+        const { title, description, image } = { ...data };
+
+        const helpMessageContainer = document.querySelector('#help-message-edit-form');
+        
+        if ( title.trim() === '' ) {
+            setHelpMessage( 'Debes ingresar un titulo' ); 
+            allOk = false;
+        } else if ( description.trim() === '' ) {
+            setHelpMessage( 'Debes ingresar una descripción' );
+            allOk = false;
+        } else if ( image.trim() === '' ) {
+            setHelpMessage( 'Debes ingresar una URL como imagen' ); 
+            allOk = false;
+        }
+
+        if ( allOk ) {
+            editPost( title, description, image );
+        }
+        else {
+            helpMessageContainer.classList.remove('hidden');
+
+            setTimeout(() => {
+                helpMessageContainer.classList.add('hidden');
+            }, 3500);
+        }
+    }
+
+    const editPost = async ( title, description, image ) => {
         try {
-            const { title, description, image } = { ...data };
-            
             const loginInfo = await useAdminServices.tempLogin();
             const token = loginInfo['token'];
 
@@ -53,6 +80,8 @@ const EditForm = () => {
             
             if( response ) {
                 console.log( response );
+                setFormState('create'); 
+                setPostId( undefined );
             } else {
                 console.log('Ha ocurrido un error');
             }  
@@ -75,7 +104,6 @@ const EditForm = () => {
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded' 
                     value={ data.title }
                     onChange={ handleInputChange }
-                    required
                 />
 
                 <label htmlFor='description-text-area' className='mt-4'>Description</label>
@@ -88,7 +116,6 @@ const EditForm = () => {
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
                     value={ data.description }
                     onChange={ handleInputChange }
-                    required 
                 />
 
                 <label htmlFor='image-input' className='mt-4'>Image</label>
@@ -100,22 +127,24 @@ const EditForm = () => {
                     className='border-2 border-gray-300 mt-1 px-3 py-1 rounded'
                     value={ data.image }
                     onChange={ handleInputChange }
-                    required 
                 />
 
                 <div className='flex justify-evenly w-full mt-2'>
                     <button 
                         id='clear-all' 
                         className='bg-gray-300 hover:bg-gray-400 mt-5 px-2 py-2 rounded self-center text-center w-2/6'
+                        onClick={ () => { setFormState('create'); setPostId( undefined ) } }
                     >Cancel</button>
 
                     <button 
                         id='update' 
                         className='bg-purple-600 hover:bg-purple-800 mt-5 px-2 py-2  rounded self-center text-center text-white w-2/6'
-                        onClick={ () => { editPost();  setFormState( 'create' ); setPostId( undefined ); } }
+                        onClick={ validateData }
                     >Edit post</button>
                 </div>
             </form>
+            
+            <p id='help-message-edit-form' className='bg-orange hidden mt-8 py-2 rounded text-center text-xl text-white w-3/4'>{ helpMessage }</p>
         </div>
     );
 }

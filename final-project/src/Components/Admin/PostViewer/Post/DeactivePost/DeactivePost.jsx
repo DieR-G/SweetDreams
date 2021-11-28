@@ -1,9 +1,20 @@
 import React from 'react';
-import { BiCommentDetail, BiEditAlt, AiOutlineEye } from 'react-icons/all';
+import { BiCommentDetail, BiEditAlt, AiOutlineEyeInvisible } from 'react-icons/all';
+import { useAdminContext } from '../../../../../Contexts/AdminContext';
 
-const DeactivePost = ( { id, title, toggleActive = () => {} } ) => {
-    const helpMesage = () => {
-        alert('No puedes editar un post oculto');
+const DeactivePost = ( { title, toggleActive = () => {} } ) => {
+    const { setHelpMessage } = useAdminContext();
+
+    const showHelpMessage = () => {
+        const helpMessageContainer = document.querySelector('#help-message');
+
+        setHelpMessage('No puedes editar un post oculto');
+        
+        helpMessageContainer.classList.remove('hidden');
+
+        setTimeout(() => {
+            helpMessageContainer.classList.add('hidden');
+        }, 3500);
     }
 
     return (
@@ -18,14 +29,14 @@ const DeactivePost = ( { id, title, toggleActive = () => {} } ) => {
                     <BiCommentDetail />
                 </div>
 
-                <div onClick={ () => { helpMesage(); } }
+                <div onClick={ () => { showHelpMessage(); } }
                     className='bg-yellow-500 hover:bg-yellow-600 cursor-pointer flex h-full justify-center items-center w-4/12'>
                     <BiEditAlt />
                 </div>
 
                 <div onClick={ () => { toggleActive(); } }
-                    className='bg-green-600 hover:bg-green-700 cursor-pointer flex h-full items-center justify-center w-4/12'>
-                    <AiOutlineEye />
+                    className='bg-red-500 hover:bg-red-700 cursor-pointer flex h-full items-center justify-center w-4/12'>
+                    <AiOutlineEyeInvisible />
                 </div>
             </div>
         </div>
