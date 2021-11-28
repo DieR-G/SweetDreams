@@ -1,12 +1,13 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import Button from '../../Button/Button';
 import postsServices from '../../../Services/posts.services'
 import SearchIcon from '../../../Assets/Search.svg'
+import SessionContext from '../../../Contexts/SessionContext';
 
 
 const SearchBar = ({ searchFunction = () => { }, clearFunction = () => { } }) => {
     const [search, SetSearch] = useState("");
-
+    const {authenticated} = useContext(SessionContext);
 
     useEffect(() => {
         console.log(search);
@@ -23,11 +24,9 @@ const SearchBar = ({ searchFunction = () => { }, clearFunction = () => { } }) =>
             //number of page to query
             let page = 0;
             let response;
-            const loginInfo = await postsServices.tempLogin();
+            //const loginInfo = await postsServices.tempLogin();
 
-            const token = loginInfo['token'];
-
-
+            const token = authenticated.token;
 
             do {
 

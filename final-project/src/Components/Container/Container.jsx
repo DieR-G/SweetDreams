@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
 import Card from './Card/Card'
 import SearchBar from './SearchBar/SearchBar';
 import Menu from './Menu/Menu';
@@ -6,6 +6,8 @@ import Button from '../Button/Button';
 
 
 import postsServices from '../../Services/posts.services'
+import SessionContext from '../../Contexts/SessionContext';
+import { useNavigate } from 'react-router';
 
 
 
@@ -17,20 +19,23 @@ const Container = () => {
     const [page, SetPage] = useState(0);
     const [clear, SetClear] = useState(false);
     const [limit, SetLimit] = useState(15);
-
-
+    const {authenticated} = useContext(SessionContext);
+    let navigate = useNavigate();
 
 
 
 
 
     useEffect(() => {
+        if(!authenticated.logged){
+            navigate("/");
+        }
         const fetchPosts = async () => {
             try {
-                const loginInfo = await postsServices.tempLogin();
+                //const loginInfo = await postsServices.tempLogin();
 
 
-                const token = loginInfo['token']
+                const token = authenticated.token;
 
 
 
@@ -88,7 +93,7 @@ const Container = () => {
 
 
                 {posts.map((post) => {
-                    return <Card title={post.title} key={post.id} image={post.image} />
+                    return <Card id={post.id} title={post.title} key={post.id} image={post.image} />
                 })}
 
             </div>
