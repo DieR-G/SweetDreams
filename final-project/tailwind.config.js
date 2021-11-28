@@ -5,6 +5,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      screens: {
+        'u-sm': '320px',
+      },
       colors: {
         lightgreen: "#6CC471",
         darkgreen: "#509154",
@@ -24,7 +27,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      visibility: ["group-hover"],
+      backdropBlur: ['hover', 'focus', 'group-hover'],
+    },
   },
   plugins: [],
 };
