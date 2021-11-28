@@ -11,7 +11,6 @@ export default function Empty() {
   let navigate = useNavigate();
   const userRef = useRef({ username: "", role: "" });
   const [userLoaded, setuserLoaded] = useState(false);
-  const [content, setContent] = useState(<LoadingScreen />);
   
   useEffect(() => {
     if (!authenticated.logged) {
@@ -21,7 +20,7 @@ export default function Empty() {
       (async function () {
         let user = await AuthHelper.whoami(authenticated.token);
         //if request is not ok the token probably expired
-        if (user.role == "admin") {
+        if (user.role === "admin") {
           navigate("/admin");
         }
         if (user.found) {

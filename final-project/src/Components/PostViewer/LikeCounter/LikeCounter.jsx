@@ -31,7 +31,7 @@ function LikeCounter(props) {
             setLiked(true);
         }   
         else{
-            temp = temp.filter((item)=>{return item.username != props.loggedUser.username})
+            temp = temp.filter((item)=>{return item.username !== props.loggedUser.username})
             setLiked(false);
         }
         setLikes(temp);
@@ -40,7 +40,7 @@ function LikeCounter(props) {
   const noneFunction = () => {};
   useEffect(() => {
     for (let usr of likes) {
-      if (usr.username == props.loggedUser.username) {
+      if (usr.username === props.loggedUser.username) {
         setLiked(true);
         setLikeStyle(likedStyle);
         setLikeIcon(<AiFillHeart />);

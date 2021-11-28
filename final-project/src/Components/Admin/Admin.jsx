@@ -9,7 +9,7 @@ const Admin = () => {
     const {authenticated} = useContext(SessionContext);
     let navigate = useNavigate();
     useEffect(()=>{
-        if(!authenticated.logged || authenticated.role !== "admin"){
+        if(!authenticated.logged){
             navigate("/");
         }
     },[])

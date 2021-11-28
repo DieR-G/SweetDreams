@@ -37,7 +37,7 @@ function PostViewer(props) {
                       <BsArrowLeftShort />
                     </button>
                     <div>
-                      <img className="w-full rounded-lg" src={post.image} alt="image"></img>
+                      <img className="w-full rounded-lg" src={post.image} alt="post"></img>
                     </div>
                   </div>
                   <Content postId={id} loggedUser={user} currentPost={post} favorites={favs.favorites}/>

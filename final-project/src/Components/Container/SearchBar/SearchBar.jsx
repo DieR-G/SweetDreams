@@ -36,7 +36,7 @@ const SearchBar = ({ searchFunction = () => { }, clearFunction = () => { } }) =>
                     console.log(response['error']);
 
                 }
-                else if (response['data'].length == 0) {
+                else if (response['data'].length === 0) {
                     //If no data came back from the server, we go out of the loop, since we'd gone over everypost
                     break;
                 }

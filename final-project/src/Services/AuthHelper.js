@@ -32,7 +32,7 @@ AuthHelper.login = async (e) => {
 AuthHelper.whoami = async (token) => {
   let userInfo = { found: false, username: "", role: "" };
   let request = await fetch(
-    "https://posts-pw2021.herokuapp.com/api/v1/auth/whoami",
+    whoamiUrl,
     {
       method: "GET",
       withCredentials: true,

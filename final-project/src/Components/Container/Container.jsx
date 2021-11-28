@@ -8,6 +8,7 @@ import Button from '../Button/Button';
 import postsServices from '../../Services/posts.services'
 import SessionContext from '../../Contexts/SessionContext';
 import { useNavigate } from 'react-router';
+import AuthHelper from '../../Services/AuthHelper';
 
 
 
@@ -18,7 +19,7 @@ const Container = () => {
     const [posts, SetPosts] = useState([]);
     const [page, SetPage] = useState(0);
     const [clear, SetClear] = useState(false);
-    const [limit, SetLimit] = useState(15);
+    const [limit] = useState(15);
     const {authenticated} = useContext(SessionContext);
     let navigate = useNavigate();
 
@@ -27,9 +28,17 @@ const Container = () => {
 
 
     useEffect(() => {
-        if(!authenticated.logged){
-            navigate("/");
-        }
+        (async () =>{
+            if(!authenticated.logged){
+                navigate("/");
+            }
+            else{
+                let user = await AuthHelper.whoami(authenticated.token);
+                if(user.role === "admin"){
+                    navigate("/admin");
+                }
+            }
+        })();
         const fetchPosts = async () => {
             try {
                 //const loginInfo = await postsServices.tempLogin();

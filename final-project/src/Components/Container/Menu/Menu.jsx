@@ -4,7 +4,7 @@ import SessionContext from "../../../Contexts/SessionContext";
 import Button from "../../Button/Button";
 
 const Menu = () => {
-  const { authenticated, setAuthenticated } = useContext(SessionContext);
+  const { setAuthenticated } = useContext(SessionContext);
   let navigate = useNavigate();
   const logOut = () => {
     const emptySession = {

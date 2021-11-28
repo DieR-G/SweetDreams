@@ -1,5 +1,3 @@
-import { GiTreasureMap } from "react-icons/gi";
-
 const FetchPostsHelper = {};
 
 const fetchOneUrl = "https://posts-pw2021.herokuapp.com/api/v1/post/one/";
