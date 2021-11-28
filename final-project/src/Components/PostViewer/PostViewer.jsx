@@ -7,8 +7,9 @@ import PostNotExists from "../../Static/PostNotExists";
 import { BsArrowLeftShort } from "react-icons/bs";
 import Content from "./Content/Content";
 import AuthHelper from "../../Services/AuthHelper";
+import CommentBox from "./CommentBox/CommentBox"
 
-function PostViewer() {
+function PostViewer(props) {
   let { id } = useParams();
   const [postLoaded, setPostLoaded] = useState(false);
   const [content, setContent] = useState(<div></div>);
@@ -27,12 +28,11 @@ function PostViewer() {
           let post = await FetchPostsHelper.getPost(id, authenticated.token);
           let user = await AuthHelper.whoami(authenticated.token);
           if (post.fetched) {
-            console.log(post);
             setContent(
               <div className="w-full min-h-screen flex justify-center bg-loginpattern pb-6">
-                <div className="xl:w-2/5 w-11/12 mt-10 flex flex-col gap-y-5">
+                <div className="xl:w-2/5 w-10/12 mt-4 flex flex-col gap-y-5">
                   <div>
-                    <button onClick={returnHome} className="absolute hover:bg-gray-200 rounded-full border-2 border-gray-200 ml-4 mt-3 text-white text-2xl hover:text-black text-center hover:border-0">
+                    <button onClick={returnHome} className="absolute hover:bg-white rounded-full border-2 border-white ml-4 mt-3 text-white text-2xl hover:text-black text-center hover:border-0">
                       <BsArrowLeftShort />
                     </button>
                     <div>
@@ -40,6 +40,7 @@ function PostViewer() {
                     </div>
                   </div>
                   <Content postId={id} loggedUser={user} currentPost={post} />
+                  <CommentBox comments={post.comments} postId={id} />
                 </div>
               </div>
             );

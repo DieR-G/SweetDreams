@@ -5,7 +5,7 @@ function Content(props) {
   const createdDate = new Date(currentPost.createdAt);
   return (
     <div className="shadow border border-gray-200 bg-white rounded-md w-full flex md:justify-around flex-col-reverse justify-end md:flex-row">
-      <div className="md:w-3/4 p-4">
+      <div className="md:w-3/4 py-5 px-7">
         <div className="flex items-center">
           <div className="pr-2 border-r border-gray-400">
             <h2 className="font-bold text-gray-800 font-round text-lg">
