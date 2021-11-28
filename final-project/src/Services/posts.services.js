@@ -22,8 +22,9 @@ services.getPosts = async (token, limit = 10, page = 0) => {
         //chekgin if response returned withoud problems
         const response = await request.json();
         if (request.ok) {
+
             const simplyfiedData = response['data'].map(homePost);
-            return { response: true, data: simplyfiedData };
+            return { response: true, data: simplyfiedData, pages: response['pages'] };
         }
 
 
@@ -46,6 +47,7 @@ services.getOnePost = async (id, token) => {
     const response = await request.json();
     if (request.ok) {
         const simplyfiedData = homePost(response);
+        console.log(simplyfiedData);
         return { response: true, data: simplyfiedData };
     }
 
