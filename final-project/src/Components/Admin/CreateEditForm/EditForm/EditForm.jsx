@@ -3,7 +3,7 @@ import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
 
 const EditForm = () => {
-    const { postId } = useAdminContext();
+    const { postId, setFormState, setPostId } = useAdminContext();
 
     const [ data, setData ] = useState({
         title: '',
@@ -40,19 +40,8 @@ const EditForm = () => {
         setData({
             ...data, [ e.target.name ]: e.target.value
         });
-        console.log( data );
     }
 
-    const resetAll = ( e ) => {
-        e.preventDefault();
-        e.target.reset();
-        setData({
-            title: '',
-            description: '',
-            image: '',
-        })
-    }
-    
     const editPost = async () => {
         try {
             const { title, description, image } = { ...data };
@@ -71,10 +60,10 @@ const EditForm = () => {
             console.log( error );
         }
     }
-    
+
     return (
         <div className='bg-green-600 flex flex-col items-center w-1/2'>
-            <form onSubmit={ resetAll } className='bg-gray-100 flex flex-col mt-5 p-5 rounded-lg w-4/5'>
+            <form className='bg-gray-100 flex flex-col mt-5 p-5 rounded-lg w-4/5'>
                 <h2 className='font-normal font-bold text-center text-3xl'>Edit post</h2>
 
                 <label htmlFor='title-input' className='mt-2'>Title</label>
@@ -121,10 +110,9 @@ const EditForm = () => {
                     >Cancel</button>
 
                     <button 
-                        type='submit' 
-                        id='submit' 
+                        id='update' 
                         className='bg-purple-600 hover:bg-purple-800 mt-5 px-2 py-2  rounded self-center text-center text-white w-2/6'
-                        onClick={ editPost }
+                        onClick={ () => { editPost();  setFormState( 'create' ); setPostId( undefined ); } }
                     >Edit post</button>
                 </div>
             </form>

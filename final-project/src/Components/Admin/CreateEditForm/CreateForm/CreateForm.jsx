@@ -12,7 +12,6 @@ const CreateForm = () => {
         setData({
             ...data, [ e.target.name ]: e.target.value
         });
-        console.log( data );
     }
 
     const resetAll = ( e ) => {

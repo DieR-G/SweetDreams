@@ -4,7 +4,7 @@ import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
 
 const Product = ( { id, title } ) => {
-    const { formState, changeFormState, changePostId } = useAdminContext();
+    const { setFormState, setPostId } = useAdminContext();
 
     const toggleActive = async () => {
         try {
@@ -23,16 +23,6 @@ const Product = ( { id, title } ) => {
         }
     }
 
-    const setNewFormState = () => {
-        if ( formState === 'create' ) {
-            changeFormState( 'edit' );
-        } else {
-            changeFormState( 'create' );
-        }
-    }
-
-    const setNewPostId = () => changePostId( id );
-
     return (
         <div className='border-2 border-purple-900 flex h-12 items-center justify-between mx-4 mt-5 rounded'>
             <div className='ml-4 w-9/12'>
@@ -45,7 +35,7 @@ const Product = ( { id, title } ) => {
                     <AiOutlineEye />
                 </div>
 
-                <div onClick={ () => { setNewFormState(); setNewPostId(); } }
+                <div onClick={ () => { setFormState( 'edit' ); setPostId( id ); } }
                     className='bg-yellow-500 hover:bg-yellow-700 cursor-pointer flex h-full justify-center items-center w-4/12'>
                     <BiEditAlt />
                 </div>

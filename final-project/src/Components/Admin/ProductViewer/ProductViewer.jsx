@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useAdminContext } from '../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../Services/Admin.services';
 import PaginationButton from './PaginationButton/PaginationButton';
 import Product from './Product/Product';
 import SearchBar from './SearchBar/SearchBar';
 
 const ProductViewer = () => {
+    const { formState } = useAdminContext();
     const [ adminPosts, setAdminPosts ] = useState([]);
     const [ page, setPage] = useState(0);
 
@@ -24,7 +26,7 @@ const ProductViewer = () => {
         }
 
         fetchAdminPosts();
-    }, [ page ]);
+    }, [ page, formState ]);
 
     const onPrevPagination = () => {
         let newPage = page;
