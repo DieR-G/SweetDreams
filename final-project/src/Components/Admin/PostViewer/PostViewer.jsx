@@ -8,6 +8,7 @@ import SearchBar from './SearchBar/SearchBar';
 const PostViewer = () => {
     const { formState, postState } = useAdminContext();
     const [ adminPosts, setAdminPosts ] = useState([]);
+    const [clear, setClear] = useState(false);
     const [ page, setPage ] = useState(0);
 
     useEffect(() => {
@@ -19,6 +20,8 @@ const PostViewer = () => {
 
                 const response = await useAdminServices.getAdminPosts( token, 10, page );
 
+                console.log('renderizando');
+
                 setAdminPosts( response['data'] );
             } catch (error) {
                 console.log(error);
@@ -26,7 +29,7 @@ const PostViewer = () => {
         }
 
         fetchAdminPosts();
-    }, [ page, formState, postState ]);
+    }, [ page, formState, postState, clear ]);
 
     const onPrevPagination = () => {
         let newPage = page;
@@ -48,7 +51,7 @@ const PostViewer = () => {
 
     return (
         <div className='flex flex-col w-1/2'>
-            <SearchBar />
+            <SearchBar searchFunction={ setAdminPosts } clearFunction={ setClear } />
             
             { adminPosts.map(post => {
                 return <Post
@@ -57,6 +60,7 @@ const PostViewer = () => {
                 title={post.title} 
                 active={post.active} />
             })}
+
             
             <div className='flex items-center justify-center mt-6'>
                 <PaginationButton actionText='Previus' onPagination={ onPrevPagination }/>
