@@ -1,3 +1,4 @@
+import FavToggle from "../FavToggle/FavToggle";
 import LikeCounter from "../LikeCounter/LikeCounter";
 
 function Content(props) {
@@ -21,8 +22,9 @@ function Content(props) {
           <p className="text-sm font-light text-gray-300 mt-3">Post by: {currentPost.user.username}</p>
         </div>
       </div>
-      <div className="md:w-1/4 h-full flex justify-center items-center mt-3 md:mt-0">
+      <div className="md:w-1/4 h-full flex justify-center items-center mt-3 md:mt-0 gap-x-10">
         <LikeCounter postId={props.postId} loggedUser={props.loggedUser} likes={currentPost.likes} />
+        <FavToggle favorites={props.favorites} postId={props.postId} />
       </div>
     </div>
   );

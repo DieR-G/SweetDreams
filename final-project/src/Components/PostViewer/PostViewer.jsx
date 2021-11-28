@@ -27,7 +27,8 @@ function PostViewer(props) {
         (async function () {
           let post = await FetchPostsHelper.getPost(id, authenticated.token);
           let user = await AuthHelper.whoami(authenticated.token);
-          if (post.fetched) {
+          let favs = await FetchPostsHelper.getFavorites(authenticated.token);
+          if (post.fetched && favs.fetched) {
             setContent(
               <div className="w-full min-h-screen flex justify-center bg-loginpattern pb-6">
                 <div className="xl:w-2/5 w-10/12 mt-4 flex flex-col gap-y-5">
@@ -39,7 +40,7 @@ function PostViewer(props) {
                       <img className="w-full rounded-lg" src={post.image} alt="image"></img>
                     </div>
                   </div>
-                  <Content postId={id} loggedUser={user} currentPost={post} />
+                  <Content postId={id} loggedUser={user} currentPost={post} favorites={favs.favorites}/>
                   <CommentBox comments={post.comments} postId={id} />
                 </div>
               </div>

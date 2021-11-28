@@ -3,17 +3,17 @@ export default function AuthError(props) {
   if (props.errorMsg.constructor === Array) {
     for (let msg of props.errorMsg) {
       if (msg.search("user") !== -1) {
-        message.push(<p>Mi amor, ponga el usuario</p>);
+        message.push(<p>Username cannot be empty</p>);
       }
       if (msg.search("pass") !== -1) {
-        message.push(<p>Mi amor, ponga el password</p>);
+        message.push(<p>Password cannot be empty</p>);
       }
     }
   } else {
     if (props.errorMsg.search("User") !== -1) {
-      message.push(<p>Mi amor, revise el usuario</p>);
+      message.push(<p>Please check the username</p>);
     } else if (props.errorMsg.search("Pass") !== -1) {
-      message.push(<p>Mi amor, revise el password</p>);
+      message.push(<p>Please check the password</p>);
     }
   }
   return (

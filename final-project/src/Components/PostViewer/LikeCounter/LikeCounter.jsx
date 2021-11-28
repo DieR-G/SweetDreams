@@ -12,10 +12,10 @@ function LikeCounter(props) {
   const likedStyle = "text-xl text-red-500";
   const normalStyle = "text-xl text-black";
   const { authenticated } = useContext(SessionContext);
-  const likeHover = (e) => {
+  const likeHover = () => {
     setLikeIcon(<AiFillHeart />);
   };
-  const likeLeave = (e) => {
+  const likeLeave = () => {
     setLikeIcon(<AiOutlineHeart />);
   };
   const likeClick = async (e) => {
@@ -28,18 +28,17 @@ function LikeCounter(props) {
         let temp = likes;
         if(!liked){
             temp.push({username:props.loggedUser.username});
-            setLikes(temp);
             setLiked(true);
         }   
         else{
-            setLikes(temp.filter((item)=>{return item.username != props.loggedUser.username}));
+            temp = temp.filter((item)=>{return item.username != props.loggedUser.username})
             setLiked(false);
         }
+        setLikes(temp);
     }
   };
   const noneFunction = () => {};
   useEffect(() => {
-    console.log(likeUrl);
     for (let usr of likes) {
       if (usr.username == props.loggedUser.username) {
         setLiked(true);

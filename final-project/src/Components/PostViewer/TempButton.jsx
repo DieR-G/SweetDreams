@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router"
 
 function TempButton() {
-    const postId = "61998a962869052fcd7f2df8";
+    const postId = "61a3a2dd55485d2e58573c15";
     let navigate = useNavigate();
     const watchPost = () => {
         navigate(`/posts/${postId}`);
