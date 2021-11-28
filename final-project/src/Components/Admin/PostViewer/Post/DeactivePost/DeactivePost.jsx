@@ -2,9 +2,8 @@ import React from 'react';
 import { BiCommentDetail, BiEditAlt, AiOutlineEyeInvisible } from 'react-icons/all';
 import { useAdminContext } from '../../../../../Contexts/AdminContext';
 
-const DeactivePost = ( { title, toggleActive = () => {} } ) => {
+const DeactivePost = ( { id, title, toggleActive = () => {} } ) => {
     const { setHelpMessage } = useAdminContext();
-
     const showHelpMessage = () => {
         const helpMessageContainer = document.querySelector('#help-message');
 

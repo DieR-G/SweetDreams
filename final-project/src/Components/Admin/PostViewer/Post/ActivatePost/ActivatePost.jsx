@@ -1,10 +1,11 @@
 import React from 'react';
 import { BiCommentDetail, BiEditAlt, AiOutlineEye } from 'react-icons/all';
+import { useNavigate } from 'react-router';
 import { useAdminContext } from '../../../../../Contexts/AdminContext';
 
 const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
     const { setFormState, setPostId } = useAdminContext();
-
+    let navigate = useNavigate();
     return (
         <div className='border-2 border-purple-900 flex h-12 items-center justify-between mx-4 mt-5 rounded'>
             <div className='ml-4 w-9/12'>
@@ -12,7 +13,7 @@ const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
             </div>
             
             <div className='flex h-full justify-between text-white text-2xl w-3/12 '>
-                <div onClick={ () => {} }
+                <div onClick={ () => {navigate(`/posts/${id}`)} }
                     className='bg-blue-500 hover:bg-blue-700 cursor-pointer flex h-full items-center justify-center w-4/12 '>
                     <BiCommentDetail />
                 </div>

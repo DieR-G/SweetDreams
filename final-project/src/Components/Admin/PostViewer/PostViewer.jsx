@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useAdminContext } from '../../../Contexts/AdminContext';
+import SessionContext from '../../../Contexts/SessionContext';
 import { useAdminServices } from '../../../Services/Admin.services';
 import PaginationButton from './PaginationButton/PaginationButton';
 import Post from './Post/Post';
@@ -10,13 +11,13 @@ const PostViewer = () => {
     const [ adminPosts, setAdminPosts ] = useState([]);
     const [clear, setClear] = useState(false);
     const [ page, setPage ] = useState(0);
-
+    const { authenticated } = useContext(SessionContext);
     useEffect(() => {
         const fetchAdminPosts = async () => {
             try {
-                const loginInfo = await useAdminServices.tempLogin();
+                //const loginInfo = await useAdminServices.tempLogin();
 
-                const token = loginInfo['token'];
+                const token = authenticated.token;
 
                 const response = await useAdminServices.getAdminPosts( token, 10, page );
 
@@ -63,7 +64,7 @@ const PostViewer = () => {
 
             
             <div className='flex items-center justify-center mt-6'>
-                <PaginationButton actionText='Previus' onPagination={ onPrevPagination }/>
+                <PaginationButton actionText='Previous' onPagination={ onPrevPagination }/>
                 <PaginationButton actionText='Next' onPagination={ onNextPagination }/>
             </div>
         </div>

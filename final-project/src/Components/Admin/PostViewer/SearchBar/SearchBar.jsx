@@ -22,9 +22,9 @@ const SearchBar = ( { searchFunction = () => { }, clearFunction = () => { } } ) 
             console.log(token);
 
             do {
-                response = await useAdminServices.getAdminPosts( token, 10, page );
+                response = await useAdminServices.getAdminPosts( token, 100, page );
 
-                console.log( response );
+                console.log( response.data );
 
                 if (response['data'].some(post => post.title === searchText))
                     found = true;

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
 import ActivatePost from './ActivatePost/ActivatePost';
 import DeactivePost from './DeactivePost/DeactivePost';
+import SessionContext from '../../../../Contexts/SessionContext';
 
 const Post = ( { id, title, active } ) => {
     const { setPostState } = useAdminContext();
-
+    const { authenticated } = useContext(SessionContext);
     const getDate = () => {
         const date = new Date().getTime() / 10;
         return date;
@@ -14,8 +15,8 @@ const Post = ( { id, title, active } ) => {
 
     const toggleActive = async () => {
         try {
-            const loginInfo = await useAdminServices.tempLogin();
-            const token = loginInfo['token'];
+            //const loginInfo = await useAdminServices.tempLogin();
+            const token = authenticated.token;
 
             const response = await useAdminServices.toggleActive( token, id );
             

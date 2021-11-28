@@ -4,29 +4,33 @@ import { useNavigate } from "react-router";
 import SessionContext from "../Contexts/SessionContext";
 import TempButton from "../Components/PostViewer/TempButton";
 import AuthHelper from "../Services/AuthHelper";
-
+import LoadingScreen from "./LoadingScreen";
 
 export default function Empty() {
   const { authenticated, setAuthenticated } = useContext(SessionContext);
   let navigate = useNavigate();
   const userRef = useRef({ username: "", role: "" });
   const [userLoaded, setuserLoaded] = useState(false);
+  const [content, setContent] = useState(<LoadingScreen />);
+  
   useEffect(() => {
     if (!authenticated.logged) {
       navigate("/");
     } else {
       console.log(authenticated.token);
-      (async function() {
+      (async function () {
         let user = await AuthHelper.whoami(authenticated.token);
         //if request is not ok the token probably expired
+        if (user.role == "admin") {
+          navigate("/admin");
+        }
         if (user.found) {
           userRef.current = user;
           if (userLoaded !== true) {
             console.log(authenticated.token);
             setuserLoaded(true);
           }
-        }
-        else{
+        } else {
           logOut();
         }
       })();
@@ -42,8 +46,7 @@ export default function Empty() {
     localStorage.setItem("login", JSON.stringify(emptySession));
     navigate("/login");
   };
-
-  return (
+  const emptyContent = (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="flex flex-col gap-y-10 items-center">
         <div>
@@ -65,8 +68,9 @@ export default function Empty() {
             Logout
           </button>
         </div>
-        <TempButton/>
+        <TempButton />
       </div>
     </div>
   );
+  return <>{userLoaded ? emptyContent : LoadingScreen}</>;
 }

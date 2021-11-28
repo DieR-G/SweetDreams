@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
-
+import SessionContext from '../../../../Contexts/SessionContext';
 const CreateForm = () => {
     const { helpMessage, setHelpMessage } = useAdminContext();
-
+    const { authenticated } = useContext(SessionContext);
     const [ data, setData ] = useState({
         title: '',
         description: '',
@@ -70,8 +70,8 @@ const CreateForm = () => {
 
     const createPost = async ( title, description, image ) => {
         try {
-            const loginInfo = await useAdminServices.tempLogin();
-            const token = loginInfo['token'];
+            //const loginInfo = await useAdminServices.tempLogin();
+            const token = authenticated.token;
 
             const response = await useAdminServices.createPost( token, title, description, image );
 

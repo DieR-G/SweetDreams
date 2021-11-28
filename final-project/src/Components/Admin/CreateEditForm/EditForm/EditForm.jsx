@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useAdminContext } from '../../../../Contexts/AdminContext';
 import { useAdminServices } from '../../../../Services/Admin.services';
-
+import SessionContext from '../../../../Contexts/SessionContext';
 const EditForm = () => {
     const { postId, setFormState, setPostId, helpMessage, setHelpMessage } = useAdminContext();
-
+    const { authenticated } = useContext(SessionContext);
     const [ data, setData ] = useState({
         title: '',
         description: '',
@@ -14,8 +14,8 @@ const EditForm = () => {
     useEffect(() => {
         const getAPost = async () => {
             try {
-                const loginInfo = await useAdminServices.tempLogin();
-                const token = loginInfo['token'];
+                //const loginInfo = await useAdminServices.tempLogin();
+                const token = authenticated.token;
     
                 const response = await useAdminServices.getOnePost( token, postId );
             
@@ -73,8 +73,8 @@ const EditForm = () => {
 
     const editPost = async ( title, description, image ) => {
         try {
-            const loginInfo = await useAdminServices.tempLogin();
-            const token = loginInfo['token'];
+            //const loginInfo = await useAdminServices.tempLogin();
+            const token = authenticated.token;
 
             const response = await useAdminServices.updatePost( token, postId, title, description, image );
             
