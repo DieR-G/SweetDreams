@@ -44,35 +44,9 @@ const Favorites = () => {
                 }
             }
         })();
-        // const fetchPosts = async () => {
 
-        // }
         const token = authenticated.token;
 
-        // const GetFavorites = async () => {
-        //     try {
-
-
-        //         const response = await postsServices.getFavorites(token);
-
-        //         if (!response["response"]) {
-        //             console.log(response['error']);
-        //         }
-        //         else {
-        //             //checking that the data has been loaded correctly
-
-        //             if (response['data'].length === 0)
-        //                 SetPage(0)
-        //             else
-        //                 SetPosts(response['data']);
-
-        //         }
-        //     } catch (error) {
-        //         console.log(error)
-        //     };
-        // }
-
-        // GetFavorites();
 
         if (!postLoaded) {
             (async () => {
@@ -153,31 +127,4 @@ const Favorites = () => {
     </main >) : loading}</>);
 }
 
-// return (<main className=" min-w-screen min-h-screen m-0 flex flex-col flex-wrap justify-center justify-items-center content-evenly ">
-//     <Menu fav={false} />
-//     <SearchBar searchFunction={SetPosts} clearFunction={SetClear} />
-//     <div className="min-w-screen   flex flex-row flex-wrap justify-center justify-items-center content-evenly p-20 ">
-
-
-//         {posts.map((post) => {
-//             return <Card id={post.id} title={post.title} key={post.id} image={post.image} />
-//         })}
-
-//     </div>
-//     <div className="w-full h-40 flex flex-row justify-center justify-items-center content-evenly ">
-
-
-//         {clear &&
-//             (<Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Clear" onClick={(e) => { e.preventDefault(); SetPage(0); SetClear(false); setPostLoaded(false); }} />)}
-//         {!clear &&
-//             (<>
-//                 <Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Previous" onClick={(e) => { e.preventDefault(); SetPage(changeOffset(page, false)); setPostLoaded(false) }} />
-//                 <Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Next" onClick={(e) => { e.preventDefault(); SetPage(changeOffset(page, true)); setPostLoaded(false) }} />
-//             </>)}
-//     </div>
-//     <div className="min-w-screen h-24 bg-purple-500 flex flex-row justify-end p-6">
-
-//     </div>
-// </main >)
-//}
 export default Favorites;
