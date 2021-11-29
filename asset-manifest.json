@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/SweetDreams/static/css/main.4ddf41dd.chunk.css",
-    "main.js": "/SweetDreams/static/js/main.7cdb0a07.chunk.js",
-    "main.js.map": "/SweetDreams/static/js/main.7cdb0a07.chunk.js.map",
+    "main.js": "/SweetDreams/static/js/main.5311f233.chunk.js",
+    "main.js.map": "/SweetDreams/static/js/main.5311f233.chunk.js.map",
     "runtime-main.js": "/SweetDreams/static/js/runtime-main.0850274b.js",
     "runtime-main.js.map": "/SweetDreams/static/js/runtime-main.0850274b.js.map",
     "static/js/2.70d3107e.chunk.js": "/SweetDreams/static/js/2.70d3107e.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.0850274b.js",
     "static/js/2.70d3107e.chunk.js",
     "static/css/main.4ddf41dd.chunk.css",
-    "static/js/main.7cdb0a07.chunk.js"
+    "static/js/main.5311f233.chunk.js"
   ]
 }
