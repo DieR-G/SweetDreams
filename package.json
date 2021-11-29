@@ -1,6 +1,6 @@
 {
   "name": "final-project",
-  "homepage":"https://TestClasss.github.io/evaluacion8proyectofinal-equipo-30/",
+  "homepage": "https://dier-g.github.io/SweetDreams/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -23,7 +23,7 @@
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build", 
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
