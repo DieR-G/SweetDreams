@@ -4,11 +4,11 @@ import LoginContainer from "./Components/LoginContainer/LoginContainer";
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound from "./Static/NotFound";
-import Empty from "./Static/Empty";
 import SessionContext from "./Contexts/SessionContext";
 import PostViewer from "./Components/PostViewer/PostViewer";
 import Admin from './Components/Admin/Admin';
-import Container from './Components/Container/Container'
+import Container from './Components/Container/Container';
+
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.login != null ? JSON.parse(localStorage.login):{});
   return (

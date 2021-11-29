@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { useAdminContext } from '../../../../../Contexts/AdminContext';
 
 const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
-    const { setFormState, setPostId } = useAdminContext();
+    const { setFormState, setPostId, setClear } = useAdminContext();
     let navigate = useNavigate();
     return (
         <div className='border-2 border-purple-900 flex h-12 items-center justify-between mx-4 mt-5 rounded'>
@@ -18,7 +18,7 @@ const ActivatePost = ( { id, title, toggleActive = () => {} } ) => {
                     <BiCommentDetail />
                 </div>
 
-                <div onClick={ () => { setFormState( 'edit' ); setPostId( id ); } }
+                <div onClick={ () => { setFormState( 'edit' ); setPostId( id ); setClear( false ); } }
                     className='bg-yellow-500 hover:bg-yellow-600 cursor-pointer flex h-full justify-center items-center w-4/12'>
                     <BiEditAlt />
                 </div>
