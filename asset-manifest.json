@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "//dier-g.github.io/SweetDreams/static/css/main.7dadda41.chunk.css",
+    "main.js": "//dier-g.github.io/SweetDreams/static/js/main.bd6a4af7.chunk.js",
+    "main.js.map": "//dier-g.github.io/SweetDreams/static/js/main.bd6a4af7.chunk.js.map",
+    "runtime-main.js": "//dier-g.github.io/SweetDreams/static/js/runtime-main.1f703b01.js",
+    "runtime-main.js.map": "//dier-g.github.io/SweetDreams/static/js/runtime-main.1f703b01.js.map",
+    "static/js/2.70d3107e.chunk.js": "//dier-g.github.io/SweetDreams/static/js/2.70d3107e.chunk.js",
+    "static/js/2.70d3107e.chunk.js.map": "//dier-g.github.io/SweetDreams/static/js/2.70d3107e.chunk.js.map",
+    "static/js/3.5cac02bc.chunk.js": "//dier-g.github.io/SweetDreams/static/js/3.5cac02bc.chunk.js",
+    "static/js/3.5cac02bc.chunk.js.map": "//dier-g.github.io/SweetDreams/static/js/3.5cac02bc.chunk.js.map",
+    "index.html": "//dier-g.github.io/SweetDreams/index.html",
+    "static/css/main.7dadda41.chunk.css.map": "//dier-g.github.io/SweetDreams/static/css/main.7dadda41.chunk.css.map",
+    "static/js/2.70d3107e.chunk.js.LICENSE.txt": "//dier-g.github.io/SweetDreams/static/js/2.70d3107e.chunk.js.LICENSE.txt",
+    "static/media/Search.e17167c4.svg": "//dier-g.github.io/SweetDreams/static/media/Search.e17167c4.svg",
+    "static/media/candy_logo.c6b15da6.svg": "//dier-g.github.io/SweetDreams/static/media/candy_logo.c6b15da6.svg",
+    "static/media/index.css": "//dier-g.github.io/SweetDreams/static/media/login_background.402cf925.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1f703b01.js",
+    "static/js/2.70d3107e.chunk.js",
+    "static/css/main.7dadda41.chunk.css",
+    "static/js/main.bd6a4af7.chunk.js"
+  ]
+}
