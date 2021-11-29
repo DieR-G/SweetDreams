@@ -27,7 +27,7 @@ const Menu = ({ fav = false }) => {
 
   if (fav === true) {
     return (
-      <div className="min-w-screen h-24 bg-purple-500 flex flex-row justify-center sm:justify-end p-6  u-sm:mb-10 p-6  ">
+      <div className="min-w-screen h-24 bg-loginpattern flex flex-row justify-center sm:justify-end p-6  u-sm:mb-10 p-6  ">
 
         <Button
           onClick={Favorites}

@@ -94,7 +94,7 @@ const Container = () => {
     return (<>{postLoaded ? (
         <main className=" min-w-screen min-h-screen m-0 flex flex-col flex-wrap justify-center justify-items-center content-evenly ">
             <Menu />
-            <SearchBar searchFunction={SetPosts} clearFunction={SetClear} loading={()=>{setPostLoaded()}} />
+            <SearchBar searchFunction={SetPosts} clearFunction={SetClear} loading={() => { setPostLoaded() }} />
             <div className="min-w-screen  flex flex-row flex-wrap justify-center justify-items-center content-evenly p-20">
                 {posts.map((post) => {
                     return <Card id={post.id} title={post.title} key={post.id} image={post.image} />
@@ -110,7 +110,7 @@ const Container = () => {
                         <button ref={loadMoreRef} className={""} onClick={() => { loadNext(); }} ></button>
                     </>)}
             </div>
-            <div className="min-w-screen h-24 bg-purple-500 flex flex-row justify-end p-6">
+            <div className="min-w-screen h-24 bg-loginpattern flex flex-row justify-end p-6">
 
             </div>
         </main >) : loading}</>);

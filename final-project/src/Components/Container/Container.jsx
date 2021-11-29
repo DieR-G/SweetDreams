@@ -119,7 +119,7 @@ const Container = () => {
                     <Button localStyle="w-40 h-10 bg-pink-500 m-6 font-normal text-white rounded-md" text="Next" onClick={(e) => { e.preventDefault(); SetPage(changeOffset(page, true)); setPostLoaded(false) }} />
                 </>)}
         </div>
-        <div className="min-w-screen h-24 bg-purple-500 flex flex-row justify-end p-6">
+        <div className="min-w-screen h-24 bg-loginpattern flex flex-row justify-end p-6">
 
         </div>
     </main >) : loading}</>);
