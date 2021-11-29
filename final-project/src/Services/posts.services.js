@@ -1,8 +1,9 @@
 // url for getting all the posts 
 import { homePost } from "./utilites"
 const BASE_URL = 'https://posts-pw2021.herokuapp.com/api/v1/post/all'
-const LOGIN_URL = 'https://posts-pw2021.herokuapp.com/api/v1/auth/signin'
 const ONE_URL = 'https://posts-pw2021.herokuapp.com/api/v1/post/one/';
+const FAV = 'https://posts-pw2021.herokuapp.com/api/v1/post/fav';
+
 
 
 const services = {};
@@ -36,18 +37,60 @@ services.getPosts = async (token, limit = 10, page = 0) => {
 }
 
 
+services.getFavorites = async (token) => {
+    try {
+        //getting the posts from the api
+        const request = await fetch(`${FAV}`, {
+            headers: {
+                //Header with the auth for accesing the post
+                "Authorization": `Bearer ${token}`
+            },
+            method: "GET", //defining the method
+
+        })
+
+        //chekgin if response returned withoud problems
+        const response = await request.json();
+
+        if (request.ok) {
+
+            const favorites = response['favorites'];
+            let favPosts = [];
+            for (let i = 0; i < favorites.length; i++) {
+                let temp = await services.getOnePost(favorites[i], token)
+                favPosts.push(temp['data']);
+
+            }
+
+    
+
+            console.log(favPosts)
+            return { response: true, data: favPosts };
+        }
+
+
+        return { response: false, data: null }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
 services.getOnePost = async (id, token) => {
     const request = await fetch(`${ONE_URL}${id}`, {
         headers: {
+            //Header with the auth for accesing the post
             "Authorization": `Bearer ${token}`
         },
-        method: "POST",
+        method: "GET", //defining the method
+
     })
 
     const response = await request.json();
     if (request.ok) {
-        const simplyfiedData = homePost(response);
-        console.log(simplyfiedData);
+        const simplyfiedData = await homePost(response);
         return { response: true, data: simplyfiedData };
     }
 
@@ -57,49 +100,7 @@ services.getOnePost = async (id, token) => {
 
 
 
-//Temporal login, for testing purposes
-/* 
-Credentials 
-{ "group": "30", 
-"admin": { "username": "gp30_admin", 
-"email": "gp30_admin@test.com", 
-"password": "QNnbLKHxVe7ktNog" },
 
-"user": { 
-    "username": "gp30_user", 
-"email": "gp30_user@test.com", 
-"password": "x9pti00rzPcIXhBQ" }, "sync": true }
-
-*/
-
-services.tempLogin = async () => {
-
-
-    try {
-        const request = await fetch(`${LOGIN_URL}`, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "POST",
-            body: "username=gp30_admin&password=QNnbLKHxVe7ktNog",
-        })
-
-        let response = await request.json()
-
-
-        if (request.ok)
-            return response;
-        else
-            return {}
-
-
-
-
-
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 
 export default services;

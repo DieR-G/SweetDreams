@@ -3,7 +3,7 @@ import useInView from "react-cool-inview";
 
 
 //Component created to add an infinite loading for mobile formatting 
-export const useInfiniteLoading = ({ getter = () => { }, getToken = () => { }, limit = 10, page = 0 }) => {
+export const useInfiniteLoading = ({ prevItems = [], getter = () => { }, token, limit = 10, page = 0 }) => {
 
     const getItems = getter;
     const [items, SetItems] = useState([]);
@@ -11,13 +11,9 @@ export const useInfiniteLoading = ({ getter = () => { }, getToken = () => { }, l
     //creates a mutable state
     const initialPageLoaded = useRef(false);
     const [hasMore, SetHasMore] = useState(true);
+    const [rendered, SetRendered] = useState(false)
 
-    const setToken = async () => {
-        const loginInfo = await getToken();
-        const token = loginInfo['token']
 
-        return token;
-    }
 
 
 
@@ -25,13 +21,13 @@ export const useInfiniteLoading = ({ getter = () => { }, getToken = () => { }, l
 
     const loadItems = async (actualPage) => {
         try {
-            const token = await setToken()
             const response = await getItems(token, limit, actualPage);
 
 
             const data = response['data'];
             SetHasMore(response['pages'] > pageToLoad.current);
-            if(Array.isArray(items))
+            SetRendered(true);
+            if (Array.isArray(items))
                 SetItems(prevItems => [...prevItems, ...data]);
             else
                 SetItems(data)
@@ -43,14 +39,12 @@ export const useInfiniteLoading = ({ getter = () => { }, getToken = () => { }, l
 
     const loadNext = () => {
         pageToLoad.current = Number(pageToLoad.current) + 1;
-        console.log(pageToLoad.current);
         loadItems(pageToLoad.current);
     }
 
-        //Observer to load automatically the next batch of posts
+    //Observer to load automatically the next batch of posts
     const { observe } = useInView({
         onEnter: () => {
-            console.log('a')
             loadNext()
         }
     })
@@ -72,6 +66,7 @@ export const useInfiniteLoading = ({ getter = () => { }, getToken = () => { }, l
         hasMore,
         loadItems,
         loadNext,
+        rendered,
         loadMoreRef: observe
     };
 
