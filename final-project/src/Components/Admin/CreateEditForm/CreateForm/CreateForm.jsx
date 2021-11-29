@@ -38,7 +38,6 @@ const CreateForm = () => {
     }
 
     const validateData = ( e ) => {
-        e.preventDefault();
         let allOk = true;
 
         const { title, description, image } = { ...data };
@@ -48,18 +47,31 @@ const CreateForm = () => {
         if ( title.trim() === '' ) {
             setHelpMessage( 'Debes ingresar un titulo' ); 
             allOk = false;
+            
+            
         } else if ( description.trim() === '' ) {
             setHelpMessage( 'Debes ingresar una descripción' );
             allOk = false;
+
+            
         } else if ( image.trim() === '' ) {
             setHelpMessage( 'Debes ingresar una URL como imagen' ); 
             allOk = false;
+        } else {
+            if( title.length < 8 ) {
+                setHelpMessage( 'El titulo debe tener entre 8 y 32 caracteres' );
+                allOk = false;
+            } else if ( description.length < 8 ) {
+                setHelpMessage( 'La descripción debe tener como mínimo 8 caracteres' );
+                allOk = false;
+            }
         }
 
         if ( allOk ) {
             createPost( title, description, image );
         }
         else {
+            e.preventDefault();
             helpMessageContainer.classList.remove('hidden');
 
             setTimeout(() => {

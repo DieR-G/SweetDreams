@@ -40,12 +40,11 @@ const EditForm = () => {
     }
 
     const validateData = ( e ) => {
-        e.preventDefault();
         let allOk = true;
 
         const { title, description, image } = { ...data };
 
-        const helpMessageContainer = document.querySelector('#help-message');
+        const helpMessageContainer = document.querySelector('#help-message-edit');
         
         if ( title.trim() === '' ) {
             setHelpMessage( 'Debes ingresar un titulo' ); 
@@ -56,12 +55,22 @@ const EditForm = () => {
         } else if ( image.trim() === '' ) {
             setHelpMessage( 'Debes ingresar una URL como imagen' ); 
             allOk = false;
+        } else {
+            if( title.trim().length < 8 ) {
+                setHelpMessage( 'El titulo debe tener entre 8 y 32 caracteres' );
+                allOk = false;
+            } else if ( description.trim().length < 8 ) {
+                setHelpMessage( 'La descripción debe tener como mínimo 8 caracteres' );
+                allOk = false;
+            }
         }
 
         if ( allOk ) {
-            editPost( title, description, image );
+            const token = authenticated.token;
+            editPost( token, postId, title, description, image );
         }
         else {
+            e.preventDefault();
             helpMessageContainer.classList.remove('hidden');
 
             setTimeout(() => {
@@ -70,10 +79,8 @@ const EditForm = () => {
         }
     }
 
-    const editPost = async ( title, description, image ) => {
+    const editPost = async ( token, postId, title, description, image ) => {
         try {
-            const token = authenticated.token;
-
             const response = await useAdminServices.updatePost( token, postId, title, description, image );
             
             if( response ) {
@@ -142,7 +149,7 @@ const EditForm = () => {
                 </div>
             </form>
             
-            <p id='help-message' className='bg-orange hidden mt-8 py-2 rounded text-center text-xl text-white w-3/4'>{ helpMessage }</p>
+            <p id='help-message-edit' className='bg-orange hidden mt-8 py-2 rounded text-center text-xl text-white w-3/4'>{ helpMessage }</p>
         </div>
     );
 }
