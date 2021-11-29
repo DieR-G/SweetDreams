@@ -2,26 +2,22 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useAdminContext } from '../../../Contexts/AdminContext';
 import SessionContext from '../../../Contexts/SessionContext';
 import { useAdminServices } from '../../../Services/Admin.services';
+import Button from '../../Button/Button';
 import PaginationButton from './PaginationButton/PaginationButton';
 import Post from './Post/Post';
 import SearchBar from './SearchBar/SearchBar';
 
 const PostViewer = () => {
-    const { formState, postState } = useAdminContext();
+    const { formState, postState, clear, setClear, page, setPage } = useAdminContext();
     const [ adminPosts, setAdminPosts ] = useState([]);
-    const [clear, setClear] = useState(false);
-    const [ page, setPage ] = useState(0);
     const { authenticated } = useContext(SessionContext);
+
     useEffect(() => {
         const fetchAdminPosts = async () => {
             try {
-                //const loginInfo = await useAdminServices.tempLogin();
-
                 const token = authenticated.token;
 
                 const response = await useAdminServices.getAdminPosts( token, 10, page );
-
-                console.log('renderizando');
 
                 setAdminPosts( response['data'] );
             } catch (error) {
@@ -39,7 +35,7 @@ const PostViewer = () => {
             return;
         } else {
             newPage -= 1;
-            setPage( newPage);
+            setPage( newPage );
         }
     }
 
@@ -63,10 +59,26 @@ const PostViewer = () => {
             })}
 
             
-            <div className='flex items-center justify-center mt-6'>
-                <PaginationButton actionText='Previous' onPagination={ onPrevPagination }/>
-                <PaginationButton actionText='Next' onPagination={ onNextPagination }/>
-            </div>
+            {clear && 
+                (
+                    <div className='flex items-center justify-center mt-6'>
+                        <Button
+                            localStyle='bg-pink-500 hover:bg-pink-700 mx-2 px-4 py-1 rounded text-white text-xl'
+                            text='Clear search'
+                            onClick={(e) => { e.preventDefault(); setPage(0); setClear(false) }} 
+                        />
+                    </div>
+                )
+            }
+
+            {!clear &&
+                (
+                    <div className='flex items-center justify-center mt-6'>
+                        <PaginationButton actionText='Previous' onPagination={ onPrevPagination }/>
+                        <PaginationButton actionText='Next' onPagination={ onNextPagination }/>
+                    </div>
+                )
+            }
         </div>
     );
 }

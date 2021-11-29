@@ -12,6 +12,7 @@ export const AdminProvider = ( props ) => {
     const [ helpMessage, setHelpMessage ] = useState('Hola');
     const [ postId, setPostId ] = useState(undefined);
     const [ page, setPage ] = useState(0);
+    const [ clear, setClear ] = useState(false);
 
     const providerValue = {
         formState: formState,
@@ -24,6 +25,8 @@ export const AdminProvider = ( props ) => {
         setPostId: setPostId,
         page: page,
         setPage: setPage,
+        clear: clear,
+        setClear: setClear,
     }
         
     return (

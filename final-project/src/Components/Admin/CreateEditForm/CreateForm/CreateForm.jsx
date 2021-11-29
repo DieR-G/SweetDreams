@@ -70,7 +70,6 @@ const CreateForm = () => {
 
     const createPost = async ( title, description, image ) => {
         try {
-            //const loginInfo = await useAdminServices.tempLogin();
             const token = authenticated.token;
 
             const response = await useAdminServices.createPost( token, title, description, image );

@@ -14,7 +14,6 @@ const EditForm = () => {
     useEffect(() => {
         const getAPost = async () => {
             try {
-                //const loginInfo = await useAdminServices.tempLogin();
                 const token = authenticated.token;
     
                 const response = await useAdminServices.getOnePost( token, postId );
@@ -46,7 +45,7 @@ const EditForm = () => {
 
         const { title, description, image } = { ...data };
 
-        const helpMessageContainer = document.querySelector('#help-message-edit-form');
+        const helpMessageContainer = document.querySelector('#help-message');
         
         if ( title.trim() === '' ) {
             setHelpMessage( 'Debes ingresar un titulo' ); 
@@ -73,7 +72,6 @@ const EditForm = () => {
 
     const editPost = async ( title, description, image ) => {
         try {
-            //const loginInfo = await useAdminServices.tempLogin();
             const token = authenticated.token;
 
             const response = await useAdminServices.updatePost( token, postId, title, description, image );
@@ -144,7 +142,7 @@ const EditForm = () => {
                 </div>
             </form>
             
-            <p id='help-message-edit-form' className='bg-orange hidden mt-8 py-2 rounded text-center text-xl text-white w-3/4'>{ helpMessage }</p>
+            <p id='help-message' className='bg-orange hidden mt-8 py-2 rounded text-center text-xl text-white w-3/4'>{ helpMessage }</p>
         </div>
     );
 }
