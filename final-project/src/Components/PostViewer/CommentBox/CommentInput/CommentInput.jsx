@@ -12,7 +12,7 @@ function CommentInput(props) {
           placeholder="Leave a comment..."
         ></textarea>
       </div>
-      <button onClick={props.commentFunction} className="bg-lightgreen hover:bg-darkgreen text-white font-round font-bold px-3 py-2 rounded-xl w-4/12 lg:w-auto lg:text-sm lg:py-2 lg:px-4">
+      <button onClick={props.commentFunction} className="bg-lightgreen hover:bg-darkgreen text-white font-round font-bold px-3 py-2 rounded-xl w-5/12 sm:w-4/12 md:w-auto lg:text-sm lg:py-2 lg:px-4">
         Respond
       </button>
     </div>

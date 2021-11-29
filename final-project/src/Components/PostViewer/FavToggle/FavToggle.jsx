@@ -27,13 +27,14 @@ function FavToggle(props) {
         let tempFavs = favs;
         if(!faved){
             tempFavs.push(props.postId);
+            setFavs(tempFavs);
             setFaved(true);
         }
         else{
             tempFavs = tempFavs.filter(item => {return item !== props.postId});
+            setFavs(tempFavs);
             setFaved(false);
         }
-        setFavs(tempFavs);
     }
   };
    useEffect(()=>{

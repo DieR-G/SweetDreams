@@ -18,6 +18,8 @@ function LikeCounter(props) {
   const likeLeave = () => {
     setLikeIcon(<AiOutlineHeart />);
   };
+  const noneFunction = () => {};
+
   const likeClick = async (e) => {
     let request = await fetch(likeUrl, {
       method: "PATCH",
@@ -28,16 +30,17 @@ function LikeCounter(props) {
         let temp = likes;
         if(!liked){
             temp.push({username:props.loggedUser.username});
+            setLikes(temp);
             setLiked(true);
         }   
         else{
-            temp = temp.filter((item)=>{return item.username !== props.loggedUser.username})
+            temp = temp.filter((item)=>{return item.username !== props.loggedUser.username});
+            setLikes(temp);
             setLiked(false);
         }
-        setLikes(temp);
     }
   };
-  const noneFunction = () => {};
+  
   useEffect(() => {
     for (let usr of likes) {
       if (usr.username === props.loggedUser.username) {
@@ -49,6 +52,7 @@ function LikeCounter(props) {
     if (!liked) {
       setLikeStyle(normalStyle);
       setLikeIcon(<AiOutlineHeart />);
+      console.log("now should have hover");
     }
   }, [liked]);
   return (
