@@ -47,7 +47,7 @@ const PostViewer = () => {
     }
 
     return (
-        <div className='flex flex-col w-1/2'>
+        <div className='flex flex-col w-full md:w-1/2'>
             <SearchBar searchFunction={ setAdminPosts } clearFunction={ setClear } />
             
             { adminPosts.map(post => {
@@ -61,7 +61,7 @@ const PostViewer = () => {
             
             {clear && 
                 (
-                    <div className='flex items-center justify-center mt-6'>
+                    <div className='flex items-center justify-center mb-8 mt-6'>
                         <Button
                             localStyle='bg-pink-500 hover:bg-pink-700 mx-2 px-4 py-1 rounded text-white text-xl'
                             text='Clear search'
@@ -73,7 +73,7 @@ const PostViewer = () => {
 
             {!clear &&
                 (
-                    <div className='flex items-center justify-center mt-6'>
+                    <div className='flex items-center justify-center mb-8 mt-6'>
                         <PaginationButton actionText='Previous' onPagination={ onPrevPagination }/>
                         <PaginationButton actionText='Next' onPagination={ onNextPagination }/>
                     </div>

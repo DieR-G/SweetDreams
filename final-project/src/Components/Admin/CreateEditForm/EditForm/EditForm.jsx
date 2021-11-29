@@ -89,7 +89,7 @@ const EditForm = () => {
     }
 
     return (
-        <div className='bg-green-600 flex flex-col items-center w-1/2'>
+        <div className='bg-green-600 flex flex-col items-center w-full min-h-690 md:w-1/2 md:h-screen'>
             <form className='bg-gray-100 flex flex-col mt-5 p-5 rounded-lg w-4/5'>
                 <h2 className='font-normal font-bold text-center text-3xl'>Edit post</h2>
 
@@ -127,16 +127,16 @@ const EditForm = () => {
                     onChange={ handleInputChange }
                 />
 
-                <div className='flex justify-evenly w-full mt-2'>
+                <div className='flex flex-col justify-evenly w-full mt-2 lg:flex-row'>
                     <button 
                         id='clear-all' 
-                        className='bg-gray-300 hover:bg-gray-400 mt-5 px-2 py-2 rounded self-center text-center w-2/6'
+                        className='bg-gray-300 hover:bg-gray-400 mt-5 px-2 py-2 rounded self-center text-center w-full lg:w-2/6'
                         onClick={ () => { setFormState('create'); setPostId( undefined ) } }
                     >Cancel</button>
 
                     <button 
                         id='update' 
-                        className='bg-purple-600 hover:bg-purple-800 mt-5 px-2 py-2  rounded self-center text-center text-white w-2/6'
+                        className='bg-purple-600 hover:bg-purple-800 mt-5 px-2 py-2  rounded self-center text-center text-white w-full lg:w-2/6'
                         onClick={ validateData }
                     >Edit post</button>
                 </div>

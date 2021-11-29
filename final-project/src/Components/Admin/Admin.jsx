@@ -15,7 +15,7 @@ const Admin = () => {
     },[])
     return (
         <AdminProvider>
-            <div className='flex h-screen'>
+            <div className='flex flex-col h-screen md:flex-row'>
                 <CreateEditForm />
                 <PostViewer />
             </div>  
