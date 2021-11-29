@@ -2,7 +2,7 @@ import "./App.css";
 import "./index.css";
 import LoginContainer from "./Components/LoginContainer/LoginContainer";
 import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes, HashRouter } from "react-router-dom";
 import NotFound from "./Static/NotFound";
 import SessionContext from "./Contexts/SessionContext";
 import PostViewer from "./Components/PostViewer/PostViewer";
@@ -17,7 +17,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.login != null ? JSON.parse(localStorage.login) : {});
   return (
     <SessionContext.Provider value={{ authenticated, setAuthenticated }}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route exact path="/" element={<LoginContainer />} />
           <Route path="/login" element={<LoginContainer />} />
@@ -29,7 +29,7 @@ function App() {
           <Route path="/mobile" element={<ContainerMobile />} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </SessionContext.Provider>
   );
 }
