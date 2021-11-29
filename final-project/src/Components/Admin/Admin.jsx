@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { AdminProvider } from '../../Contexts/AdminContext';
 import SessionContext from '../../Contexts/SessionContext';
 import CreateEditForm from './CreateEditForm/CreateEditForm';
+import Header from './Header/Header';
 import PostViewer from './PostViewer/PostViewer';
 
 const Admin = () => {
@@ -15,6 +16,7 @@ const Admin = () => {
     },[])
     return (
         <AdminProvider>
+            <Header />
             <div className='flex flex-col h-screen md:flex-row'>
                 <CreateEditForm />
                 <PostViewer />
